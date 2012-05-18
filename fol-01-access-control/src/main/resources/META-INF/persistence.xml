@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
+	<persistence-unit name="dbpmPU" transaction-type="RESOURCE_LOCAL">		
+		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>			
+		
+		<class>edu.unicauca.git.model.rbcc.Role</class>
+		<class>edu.unicauca.git.model.rbcc.User</class>
+		<class>edu.unicauca.git.model.rbcc.UserRole</class>
+		<class>edu.unicauca.git.model.ehr.Comment</class>		
+		<class>edu.unicauca.git.model.ehr.Patient</class>
+		<class>edu.unicauca.git.model.ehr.Record</class>
+		<class>edu.unicauca.git.model.ehr.Image</class>
+		<class>edu.unicauca.git.model.ehr.TestResult</class>
+		<class>edu.unicauca.git.model.ehr.MedicalNote</class>
+		<class>edu.unicauca.git.model.ehr.PatientRecord</class>
+		<class>edu.unicauca.git.model.ehr.Patient</class>
+		
+		<properties>			
+			<property name="eclipselink.target-database" value="PostgreSQL"/>
+			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/dbpm"/>
+			<property name="javax.persistence.jdbc.user" value="postgres"/>
+			<property name="javax.persistence.jdbc.password" value="postgres"/>
+			<property name="eclipselink.logging.level" value="WARNING"/>
+<!--   			<property name="eclipselink.ddl-generation" value="drop-and-create-tables"/> -->
+		</properties>
+
+	</persistence-unit>
+</persistence>

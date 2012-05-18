@@ -1,0 +1,88 @@
+package edu.unicauca.git.rules.AccessControl;
+
+import edu.unicauca.git.context.ActionPermission;
+import edu.unicauca.git.context.Appointment;
+import edu.unicauca.git.context.SystemContext;
+import edu.unicauca.git.context.Emergency;
+import edu.unicauca.git.model.ehr.Patient;
+import edu.unicauca.git.model.ehr.PatientRecord;
+import edu.unicauca.git.model.rbcc.User;
+import java.util.Calendar;
+
+function boolean areInTheSameDay(Calendar d1, Calendar d2){
+	//Just coincidence in the day
+	if( d1.get(Calendar.DAY_OF_YEAR) == d2.get(Calendar.DAY_OF_YEAR) )
+		return true;	
+	return false;
+}
+
+function User isAnUser(Object obj) {	
+	if(obj instanceof User){
+		return (User) obj;
+	}
+	return null;
+}
+
+
+
+//Rules for adding PatientRecords to patient.
+rule "A Doctor can add a PatientRecord to a Patient when the patient has an appointment this day with this doctor"
+    when
+     $act : ActionPermission(action=="addPatientRecord", $source:source, $target:target);     
+     Appointment($user:user==$source, $patient:patient==$target, $initDate:initDate, $endDate:endDate);
+     SystemContext($date:accessTime);
+     
+     eval( $user.hasRole("Doctor")); //The user has the role Doctor
+     eval( areInTheSameDay($date, $initDate) ); //Just coincidence in the day
+    then
+	   System.out.println( "The action is: "+$act.getAction() );
+	   System.out.println( "The source is: "+$source );
+	   System.out.println( "The target is: "+$target );
+	   $act.setResponse(true);
+end
+
+rule "Any User can add a PatientRecord to a Patient when an emergency is reported and the location is emergency-room"
+    when
+     $act : ActionPermission(action=="addPatientRecord", $source:source, $target:target);
+     Emergency($emergencyType:type);
+     SystemContext($location:location=="emergency-room");
+     
+     eval($source instanceof User); //The source is an User
+     
+    then
+	   System.out.println( "The action is: "+$act.getAction() );
+	   System.out.println( "The source is: "+$source );
+	   System.out.println( "The target is: "+$target );
+	   System.out.println( "The emergency type is: "+$emergencyType );
+	   $act.setResponse(true);
+end
+
+//Rules for adding records to patient...
+rule "A Laboratorian can add TestResul to a Patient when S/he belongs to the PatientRecord team"
+    when
+     $act : ActionPermission(action=="addTestResult", $user: isAnUser(source), $target:target);
+  	 SystemContext($location:location=="laboratory-room");
+
+  	 eval($user.hasRole("Laboratorian")); //The user has the role Laboratorian
+     eval($target instanceof PatientRecord);
+          
+    then
+	   System.out.println( "The action is: "+$act.getAction() );
+	   System.out.println( "The target is: "+$target );
+	   $act.setResponse(true);
+end
+
+/*
+rule "test"
+	when
+     $act : ActionPermission($user: isAnUser(source));
+  	 //SystemContext($location:location=="laboratory-room");
+
+  	 eval($user.hasRole("Laboratorian")); //The user has the role Laboratorian
+     //eval($target instanceof PatientRecord);
+          
+    then
+       System.out.println("test rule");
+	   System.out.println( "User: : "+$user );
+end
+*/

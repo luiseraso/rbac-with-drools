@@ -1,0 +1,85 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>edu.unicauca.git</groupId>
+  <artifactId>fol-01-access-control</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <name>fol-01-access-control</name>
+  
+  <properties>
+    <drools.version>5.4.0.Final</drools.version>
+  </properties>
+  
+ <dependencies>      
+    <dependency>
+        <groupId>org.eclipse.persistence</groupId>
+        <artifactId>javax.persistence</artifactId>
+        <version>2.0.0</version>
+    </dependency>
+        
+	<dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>eclipselink</artifactId>
+            <version>2.0.0</version>
+            <scope>compile</scope>            
+	</dependency>
+ 
+ 	<dependency>
+		<groupId>postgresql</groupId>
+		<artifactId>postgresql</artifactId>
+		<version>8.4-702.jdbc4</version>
+	</dependency>
+        
+<!-- 	<dependency> -->
+<!-- 		<groupId>org.apache.derby</groupId> -->
+<!-- 		<artifactId>derbyclient</artifactId> -->
+<!-- 		<version>10.4.2.0</version> -->
+<!-- 	</dependency> -->
+	
+	<dependency>	
+		<groupId>org.apache.derby</groupId>
+		<artifactId>derby</artifactId>
+		<version>10.8.2.2</version>
+		<scope>test</scope>
+	</dependency>
+	
+	<dependency>
+		<groupId>junit</groupId>
+		<artifactId>junit</artifactId>
+		<version>4.5</version>
+		<scope>test</scope>
+	</dependency>
+	
+	<dependency>
+        <groupId>org.drools</groupId>
+        <artifactId>drools-core</artifactId>
+        <version>${drools.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.drools</groupId>
+        <artifactId>knowledge-api</artifactId>
+        <version>${drools.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.drools</groupId>
+        <artifactId>drools-compiler</artifactId>
+        <version>${drools.version}</version>
+    </dependency>
+  
+  </dependencies>
+
+  <repositories>
+	<repository>
+		<id>EclipseLink Repo</id>
+		<url>http://www.eclipse.org/downloads/download.php?r=1&amp;nf=1&amp;file=/rt/eclipselink/maven.repo</url>
+		<snapshots>
+		   <enabled>false</enabled>
+ 		</snapshots> 
+	</repository> 
+	<repository>
+         <id>JBOSS</id>
+         <name>JBoss Repository</name>
+         <url>https://repository.jboss.org/nexus/content/repositories/releases/</url>
+    </repository> 
+  </repositories> 
+
+</project>

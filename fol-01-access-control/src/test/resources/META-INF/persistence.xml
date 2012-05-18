@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
+	<persistence-unit name="dbpmPU" transaction-type="RESOURCE_LOCAL">	
+		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>		
+				
+		<class>edu.unicauca.git.model.rbcc.Role</class>
+		<class>edu.unicauca.git.model.rbcc.User</class>
+		<class>edu.unicauca.git.model.rbcc.UserRole</class>
+		<class>edu.unicauca.git.model.ehr.Comment</class>		
+		<class>edu.unicauca.git.model.ehr.Patient</class>
+		<class>edu.unicauca.git.model.ehr.Record</class>
+		<class>edu.unicauca.git.model.ehr.Image</class>
+		<class>edu.unicauca.git.model.ehr.TestResult</class>
+		<class>edu.unicauca.git.model.ehr.MedicalNote</class>
+		<class>edu.unicauca.git.model.ehr.PatientRecord</class>
+		<class>edu.unicauca.git.model.ehr.Patient</class>
+						
+		<properties>				
+			<property name="eclipselink.target-database" value="DERBY" />
+			<property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:derby:dbpm;create=true" />
+<!-- 			<property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver" /> -->
+<!-- 			<property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/dbpm;create=true" /> -->
+			<property name="javax.persistence.jdbc.user" value="APP" />
+			<property name="javax.persistence.jdbc.password" value="APP" />
+			<property name="eclipselink.ddl-generation" value="drop-and-create-tables" />
+			<property name="eclipselink.logging.level" value="FINE" />					
+		</properties>
+		
+	</persistence-unit>
+</persistence>
